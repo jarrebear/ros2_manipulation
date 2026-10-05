@@ -72,7 +72,7 @@ public:
   }
 
   void execute_trajectory_plan() {
-    RCLCPP_INFO(LOGGER, "Planning Joint Space Trajectory...");
+    RCLCPP_INFO(LOGGER, "Planning and Executing Joint Space Trajectory...");
 
     // setup the joint value target
     RCLCPP_INFO(LOGGER, "Preparing Joint Value Trajectory...");
@@ -81,8 +81,10 @@ public:
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Joint Value Trajectory...");
     plan_trajectory_kinematics();
+    RCLCPP_INFO(LOGGER, "Executing Joint Value Trajectory...");
+    execute_trajectory_kinematics();
 
-    RCLCPP_INFO(LOGGER, "Joint Space Trajectory Planning Complete");
+    RCLCPP_INFO(LOGGER, "Joint Space Trajectory Execution Complete");
   }
 
 private:
@@ -132,6 +134,16 @@ private:
     plan_success_robot_ =
         (move_group_robot_->plan(kinematics_trajectory_plan_) ==
          moveit::core::MoveItErrorCode::SUCCESS);
+  }
+
+  void execute_trajectory_kinematics() {
+    // execute the planned trajectory to target using kinematics
+    if (plan_success_robot_) {
+      move_group_robot_->execute(kinematics_trajectory_plan_);
+      RCLCPP_INFO(LOGGER, "Robot Kinematics Trajectory Success !");
+    } else {
+      RCLCPP_INFO(LOGGER, "Robot Kinematics Trajectory Failed !");
+    }
   }
 
 }; // class JointSpaceTrajectory
