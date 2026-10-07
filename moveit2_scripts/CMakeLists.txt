@@ -65,10 +65,26 @@ ament_target_dependencies(double_motion_trajectory
     moveit_ros_planning
     control_msgs)
 
+add_executable(gripper_control
+    src/gripper_control.cpp)
+	
+target_include_directories(gripper_control
+    PUBLIC include)
+ament_target_dependencies(gripper_control
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
 install(TARGETS 
     joint_space_trajectory
     goal_pose_trajectory
 	double_motion_trajectory
+	gripper_control
     DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -77,7 +93,6 @@ install(DIRECTORY
     launch
     DESTINATION share/${PROJECT_NAME}
 )
-
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
