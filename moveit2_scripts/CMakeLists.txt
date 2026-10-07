@@ -20,8 +20,10 @@ find_package(moveit_msgs REQUIRED)
 # Generate the executable
 add_executable(joint_space_trajectory
     src/joint_space_trajectory.cpp)
+
 target_include_directories(joint_space_trajectory
     PUBLIC include)
+
 ament_target_dependencies(joint_space_trajectory
     ament_cmake
     rclcpp
@@ -32,17 +34,28 @@ ament_target_dependencies(joint_space_trajectory
     moveit_ros_planning
     control_msgs)
 
-# Install the executable
-install(TARGETS 
-    joint_space_trajectory
-    DESTINATION lib/${PROJECT_NAME}
-)
-
 add_executable(goal_pose_trajectory
     src/goal_pose_trajectory.cpp)
+
 target_include_directories(goal_pose_trajectory
     PUBLIC include)
+
 ament_target_dependencies(goal_pose_trajectory
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
+add_executable(double_motion_trajectory
+    src/double_motion_trajectory.cpp)
+
+target_include_directories(double_motion_trajectory
+    PUBLIC include)
+ament_target_dependencies(double_motion_trajectory
     ament_cmake
     rclcpp
     rclcpp_action
@@ -55,9 +68,9 @@ ament_target_dependencies(goal_pose_trajectory
 install(TARGETS 
     joint_space_trajectory
     goal_pose_trajectory
+	double_motion_trajectory
     DESTINATION lib/${PROJECT_NAME}
 )
-
 
 # Install the launch file
 install(DIRECTORY 
