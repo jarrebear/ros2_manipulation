@@ -95,12 +95,28 @@ ament_target_dependencies(approach_retreat_trajectory
     moveit_ros_planning
     control_msgs)
 
+# Generate the executable
+add_executable(cartesian_trajectory
+    src/cartesian_trajectory.cpp)
+target_include_directories(cartesian_trajectory
+    PUBLIC include)
+ament_target_dependencies(cartesian_trajectory
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
 install(TARGETS 
     joint_space_trajectory
     goal_pose_trajectory
 	double_motion_trajectory
 	gripper_control
 	approach_retreat_trajectory
+	cartesian_trajectory
     DESTINATION lib/${PROJECT_NAME}
 )
 
