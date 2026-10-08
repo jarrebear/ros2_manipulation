@@ -80,11 +80,27 @@ ament_target_dependencies(gripper_control
     moveit_ros_planning
     control_msgs)
 
+add_executable(approach_retreat_trajectory
+    src/approach_retreat_trajectory.cpp)
+	
+target_include_directories(approach_retreat_trajectory
+    PUBLIC include)
+ament_target_dependencies(approach_retreat_trajectory
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
 install(TARGETS 
     joint_space_trajectory
     goal_pose_trajectory
 	double_motion_trajectory
 	gripper_control
+	approach_retreat_trajectory
     DESTINATION lib/${PROJECT_NAME}
 )
 
