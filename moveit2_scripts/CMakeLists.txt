@@ -135,6 +135,49 @@ install(TARGETS
 	draw_x_cartesian_trajectory
     DESTINATION lib/${PROJECT_NAME}
 )
+
+# Generate the executable
+add_executable(kinematics_plugin_trajectory
+    src/kinematics_plugin_trajectory.cpp)
+target_include_directories(kinematics_plugin_trajectory
+    PUBLIC include)
+ament_target_dependencies(kinematics_plugin_trajectory
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
+# Install the executable
+install(TARGETS 
+    kinematics_plugin_trajectory
+    DESTINATION lib/${PROJECT_NAME}
+)
+
+# Generate the executable
+add_executable(pick_and_place_trajectory
+    src/pick_and_place_trajectory.cpp)
+target_include_directories(pick_and_place_trajectory
+    PUBLIC include)
+ament_target_dependencies(pick_and_place_trajectory
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs)
+
+# Install the executable
+install(TARGETS 
+    pick_and_place_trajectory
+    DESTINATION lib/${PROJECT_NAME}
+)
+
 # Install the launch file
 install(DIRECTORY 
     launch
